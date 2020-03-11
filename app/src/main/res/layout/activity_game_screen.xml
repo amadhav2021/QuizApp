@@ -4,16 +4,65 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/black"
     tools:context=".GameScreen">
 
     <TextView
+        android:id="@+id/choiceA"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/mill"
-        android:textSize="@dimen/font_big"
-        app:layout_constraintTop_toTopOf="parent"
+        android:textSize="@dimen/font_medium"
+        android:textColor="@color/colorPrimary"
         app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="@id/vert_center"
+        app:layout_constraintBottom_toBottomOf="@id/ho_center"/>
+
+    <TextView
+        android:id="@+id/choiceB"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/mill"
+        android:textSize="@dimen/font_medium"
+        android:textColor="@color/colorPrimary"
+        app:layout_constraintLeft_toLeftOf="@id/vert_center"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        app:layout_constraintBottom_toBottomOf="@id/ho_center"/>
+
+    <TextView
+        android:id="@+id/choiceC"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/mill"
+        android:textSize="@dimen/font_medium"
+        android:textColor="@color/colorPrimary"
+        app:layout_constraintTop_toTopOf="@id/ho_center"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="@id/vert_center" />
+
+    <TextView
+        android:id="@+id/choiceD"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/mill"
+        android:textSize="@dimen/font_medium"
+        android:textColor="@color/colorPrimary"
+        app:layout_constraintTop_toTopOf="@id/ho_center"
+        app:layout_constraintLeft_toLeftOf="@id/vert_center"
+        app:layout_constraintRight_toRightOf="parent"/>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/ho_center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent=".50" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/vert_center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent=".50" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
