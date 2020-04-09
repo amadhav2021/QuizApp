@@ -11,6 +11,7 @@
         android:id="@+id/choiceA"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:onClick="answer_selected"
         android:text="@string/mill"
         android:textSize="@dimen/font_medium"
         android:textColor="@color/colorPrimary"
@@ -22,6 +23,7 @@
         android:id="@+id/choiceB"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:onClick="answer_selected"
         android:text="@string/mill"
         android:textSize="@dimen/font_medium"
         android:textColor="@color/colorPrimary"
@@ -33,6 +35,7 @@
         android:id="@+id/choiceC"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:onClick="answer_selected"
         android:text="@string/mill"
         android:textSize="@dimen/font_medium"
         android:textColor="@color/colorPrimary"
@@ -44,12 +47,71 @@
         android:id="@+id/choiceD"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:onClick="answer_selected"
         android:text="@string/mill"
         android:textSize="@dimen/font_medium"
         android:textColor="@color/colorPrimary"
         app:layout_constraintTop_toTopOf="@id/ho_center"
         app:layout_constraintLeft_toLeftOf="@id/vert_center"
         app:layout_constraintRight_toRightOf="parent"/>
+
+    <Button
+        android:id="@+id/final_answer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimaryDark"
+        android:textColor="@color/black"
+        android:text="@string/final_ans"
+        app:layout_constraintTop_toBottomOf="@id/choiceD"
+        app:layout_constraintBottom_toTopOf="@id/money"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"/>
+
+    <TextView
+        android:id="@+id/money"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/zero"
+        android:textSize="@dimen/font_big"
+        android:textColor="@color/colorPrimaryDark"
+        android:textAlignment="center"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ho_center"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+    <TextView
+        android:id="@+id/question"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/opener"
+        android:textAlignment="center"
+        android:textSize="@dimen/font_medium"
+        android:textColor="@color/white"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/ho_center"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <Button
+        android:id="@+id/poll"
+        android:layout_width="@dimen/icon_radius"
+        android:layout_height="@dimen/circle_radius"
+        android:background="@drawable/circle"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="@id/vert_center"
+        app:layout_constraintTop_toTopOf="@id/money"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+    <Button
+        android:id="@+id/eliminate"
+        android:layout_width="@dimen/circle_radius"
+        android:layout_height="@dimen/circle_radius"
+        android:background="@drawable/circle"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="@id/vert_center"
+        app:layout_constraintTop_toTopOf="@id/money"
+        app:layout_constraintBottom_toBottomOf="parent"/>
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/ho_center"
