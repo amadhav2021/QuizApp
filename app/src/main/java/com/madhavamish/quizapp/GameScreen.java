@@ -7,7 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-public class GameScreen extends AppCompatActivity {
+public class GameScreen extends AppCompatActivity implements PollDialog.PollDialogListener, ElimDialog.ElimDialogListener {
 
     Button final_answer, poll, eliminate, a, b, c, d;
     boolean poll_used, eliminate_used = false;
@@ -21,7 +21,6 @@ public class GameScreen extends AppCompatActivity {
         b = findViewById(R.id.choiceB);
         c = findViewById(R.id.choiceC);
         d = findViewById(R.id.choiceD);
-
 
         final_answer = findViewById(R.id.final_answer);
         final_answer.setEnabled(false);
@@ -40,14 +39,10 @@ public class GameScreen extends AppCompatActivity {
         poll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(poll_used){
+                if (poll_used) {
                     Toast.makeText(getApplicationContext(), "You have already used the audience poll lifeline", Toast.LENGTH_SHORT).show();
-                }
-                else {
-                    poll.setBackground(getResources().getDrawable(R.drawable.circle_gray, null));
-                    poll.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
-                    poll.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.lose_option_foreground, 0, 0);
-                    poll_used = true;
+                } else {
+                    pollDialog();
                 }
             }
         });
@@ -56,17 +51,23 @@ public class GameScreen extends AppCompatActivity {
         eliminate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(eliminate_used){
+                if (eliminate_used) {
                     Toast.makeText(getApplicationContext(), "You have already used the 50:50 lifeline", Toast.LENGTH_SHORT).show();
-                }
-                else {
-                    eliminate.setBackground(getResources().getDrawable(R.drawable.circle_gray, null));
-                    eliminate.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
-                    eliminate.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.lose_option_foreground, 0, 0);
-                    eliminate_used = true;
+                } else {
+                    elimDialog();
                 }
             }
         });
+    }
+
+    private void pollDialog() {
+        PollDialog exampleDialog = new PollDialog();
+        exampleDialog.show(getSupportFragmentManager(), "example dialog");
+    }
+
+    private void elimDialog() {
+        ElimDialog testDialog = new ElimDialog();
+        testDialog.show(getSupportFragmentManager(), "test dialog");
     }
 
     public void answer_selected(View view) {
@@ -79,4 +80,20 @@ public class GameScreen extends AppCompatActivity {
         final_answer.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
     }
 
+    @Override
+    public void pollUsed() {
+        poll.setBackground(getResources().getDrawable(R.drawable.circle_gray, null));
+        poll.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
+        poll.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.lose_option_foreground, 0, 0);
+        poll_used = true;
+    }
+
+    @Override
+    public void elimUsed() {
+        eliminate.setBackground(getResources().getDrawable(R.drawable.circle_gray, null));
+        eliminate.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
+        eliminate.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.lose_option_foreground, 0, 0);
+        eliminate_used = true;
+    }
 }
+
