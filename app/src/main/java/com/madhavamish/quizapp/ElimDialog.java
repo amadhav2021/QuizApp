@@ -36,7 +36,7 @@ public class ElimDialog extends AppCompatDialogFragment {
                 .setPositiveButton(R.string.use, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        listener.elimUsed();
+                        listener.useElim();
                     }
                 });
 
@@ -56,6 +56,6 @@ public class ElimDialog extends AppCompatDialogFragment {
     }
 
     public interface ElimDialogListener{
-        void elimUsed();
+        void useElim();
     }
 }

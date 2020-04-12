@@ -18,6 +18,7 @@
     <string name="game_over_explain">You selected the wrong answer, so the game is over. Don\'t worry! Your cash prize score has been saved, but you can\'t continue the game. Click the \'Go Back\' button to return to the main screen. See if you can beat your score again!</string>
     <string name="victory">Victory!</string>
     <string name="victory_explain">Congratulations! Your wits and trivia savvy have earned you the million dollar grand prize! Click the \'Go Back\' button to return to the main screen, and challenge your friends to see if they can beat your score!</string>
+    <string name="close">Close</string>
     <string-array name="questions">
         <item>Who was the 6th president of the United States?</item>
         <item>Which of the following is NOT one of the NEW 7 Wonders of the World?</item>

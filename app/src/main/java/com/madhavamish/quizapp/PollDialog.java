@@ -36,7 +36,7 @@ public class PollDialog extends AppCompatDialogFragment {
                 .setPositiveButton(R.string.use, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        listener.pollUsed();
+                        listener.usePoll();
                     }
                 });
 
@@ -55,6 +55,6 @@ public class PollDialog extends AppCompatDialogFragment {
     }
 
     public interface PollDialogListener{
-        void pollUsed();
+        void usePoll();
     }
 }

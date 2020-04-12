@@ -11,13 +11,16 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.material.snackbar.Snackbar;
+
 public class GameScreen extends AppCompatActivity implements PollDialog.PollDialogListener, ElimDialog.ElimDialogListener, GameOverDialog.GameOverListener, VictoryDialog.VictoryDialogListener {
 
     Button final_answer, poll, eliminate, first_elim, second_elim, a, b, c, d;
     TextView curr_question, curr_prize;
     String[] myQuestions, myOptions, myAnswers;
     String chosen;
-    int level = 0;
+    Snackbar poll_results;
+    int level;
     boolean poll_used, eliminate_used = false;
     SharedPreferences preferences;
     SharedPreferences.Editor editor;
@@ -41,18 +44,22 @@ public class GameScreen extends AppCompatActivity implements PollDialog.PollDial
         myOptions = getResources().getStringArray(R.array.options);
         myAnswers = getResources().getStringArray(R.array.answers);
 
+        preferences = getSharedPreferences("Settings", Context.MODE_PRIVATE);
+        editor = preferences.edit();
+
+        poll_used = preferences.getBoolean("pollUsed", false);
+        eliminate_used = preferences.getBoolean("elimUsed", false);
+        level = preferences.getInt("level", 0);
+
+        poll_results = Snackbar.make(findViewById(R.id.game_screen), "test", Snackbar.LENGTH_INDEFINITE);
+
         curr_question.setText(myQuestions[level]);
+        String prize = "$" + level * 1000;
+        curr_prize.setText(prize);
         a.setText(myOptions[level * 4]);
         b.setText(myOptions[level * 4 + 1]);
         c.setText(myOptions[level * 4 + 2]);
         d.setText(myOptions[level * 4 + 3]);
-
-        preferences = getSharedPreferences("Settings", Context.MODE_PRIVATE);
-        editor = preferences.edit();
-        editor.clear().apply();
-
-        poll_used = preferences.getBoolean("pollUsed", false);
-        eliminate_used = preferences.getBoolean("elimUsed", false);
 
         final_answer = findViewById(R.id.final_answer);
         final_answer.setEnabled(false);
@@ -62,6 +69,7 @@ public class GameScreen extends AppCompatActivity implements PollDialog.PollDial
             public void onClick(View v) {
                 first_elim = null;
                 second_elim = null;
+                poll_results.dismiss();
 
                 switch (myAnswers[level]) {
                     case "a":
@@ -99,8 +107,11 @@ public class GameScreen extends AppCompatActivity implements PollDialog.PollDial
 
                 } else {
                     level++;
+                    editor.putInt("level", level);
+                    editor.apply();
                     if(level == myAnswers.length){
                         VictoryDialog victoryDialog = new VictoryDialog();
+                        victoryDialog.setCancelable(false);
                         victoryDialog.show(getSupportFragmentManager(), "victory");
                     }
                     else {
@@ -179,7 +190,6 @@ public class GameScreen extends AppCompatActivity implements PollDialog.PollDial
         final_answer.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
     }
 
-    @Override
     public void pollUsed() {
         poll.setBackground(getResources().getDrawable(R.drawable.circle_gray, null));
         poll.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
@@ -189,8 +199,61 @@ public class GameScreen extends AppCompatActivity implements PollDialog.PollDial
         editor.apply();
     }
 
-    @Override
     public void elimUsed() {
+        eliminate.setBackground(getResources().getDrawable(R.drawable.circle_gray, null));
+        eliminate.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
+        eliminate.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.lose_option_foreground, 0, 0);
+        eliminate_used = true;
+        editor.putBoolean("elimUsed", true);
+        editor.apply();
+    }
+
+    @Override
+    public void usePoll(){
+        pollUsed();
+        int[] votes = {0, 0, 0, 0};
+        String correct_answer = myAnswers[level];
+
+        int correct_pos = 0;
+        switch (correct_answer) {
+            case "b":
+                correct_pos = 1;
+                break;
+            case "c":
+                correct_pos = 2;
+                break;
+            case "d":
+                correct_pos = 3;
+                break;
+        }
+
+        double threshold = 1 - (level+1) * .05;
+        for (int x = 0; x < 100; x++){
+            double chance = Math.random();
+            if(chance <= threshold){
+                votes[correct_pos]++;
+            }
+            else{
+                int random_pos = (int)(Math.random()*4);
+                while(random_pos == correct_pos){
+                    random_pos = (int)(Math.random()*4);
+                }
+                votes[random_pos]++;
+            }
+        }
+
+        poll_results.setText("Option A: " + votes[0] + "%\t\t\t" + "Option B: " + votes[1] + "%\n" + "Option C: " + votes[2] + "%\t\t\t" + "Option D: " + votes[3] + "%");
+        poll_results.setAction(R.string.close, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                poll_results.dismiss();
+            }
+        });
+        poll_results.show();
+    }
+
+    @Override
+    public void useElim(){
         a.setBackgroundColor(getResources().getColor(R.color.black));
         b.setBackgroundColor(getResources().getColor(R.color.black));
         c.setBackgroundColor(getResources().getColor(R.color.black));
@@ -211,23 +274,19 @@ public class GameScreen extends AppCompatActivity implements PollDialog.PollDial
         second_elim.setBackgroundColor(getResources().getColor(R.color.gray));
         second_elim.setEnabled(false);
 
-
-        eliminate.setBackground(getResources().getDrawable(R.drawable.circle_gray, null));
-        eliminate.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
-        eliminate.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.lose_option_foreground, 0, 0);
-        eliminate_used = true;
-        editor.putBoolean("elimUsed", true);
-        editor.apply();
+        elimUsed();
     }
 
     @Override
     public void gameOver() {
+        editor.clear().apply();
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }
 
     @Override
     public void gameWon() {
+        editor.clear().apply();
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }
