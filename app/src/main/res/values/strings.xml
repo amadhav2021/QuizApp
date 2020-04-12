@@ -3,4 +3,48 @@
     <string name="opener">WHO WANTS TO BE A</string>
     <string name="play">PLAY</string>
     <string name="mill">MILLIONAIRE</string>
+    <string name="zero">$0</string>
+    <string name="final_ans">FINAL ANSWER</string>
+    <string name="poll_explain">The \"Audience Poll\" lifeline will survey the crowd and display what they think is the correct answer.</string>
+    <string name="cancel">Cancel</string>
+    <string name="eliminate_explain">The \"50:50\" lifeline will remove two incorrect options.</string>
+    <string name="use">Use</string>
+    <string name="poll">Audience Poll</string>
+    <string name="eliminate">50:50</string>
+    <string name="correct">Correct!</string>
+    <string name="next">Next</string>
+    <string name="back">Go back</string>
+    <string name="game_over">Game Over</string>
+    <string name="game_over_explain">You selected the wrong answer, so the game is over. Don\'t worry! Your cash prize score has been saved, but you can\'t continue the game. Click the \'Go Back\' button to return to the main screen. See if you can beat your score again!</string>
+    <string name="victory">Victory!</string>
+    <string name="victory_explain">Congratulations! Your wits and trivia savvy have earned you the million dollar grand prize! Click the \'Go Back\' button to return to the main screen, and challenge your friends to see if they can beat your score!</string>
+    <string-array name="questions">
+        <item>Who was the 6th president of the United States?</item>
+        <item>Which of the following is NOT one of the NEW 7 Wonders of the World?</item>
+        <item>Which of the following countries has NEVER won the World Cup?</item>
+    </string-array>
+
+    <string-array name="options">
+        <item>A: John Quincy Adams</item>
+        <item>B: Andrew Jackson</item>
+        <item>C: James Monroe</item>
+        <item>D: Abraham Lincoln</item>
+
+        <item>A: Petra</item>
+        <item>B: Taj Mahal</item>
+        <item>C: Great Pyramid of Giza</item>
+        <item>D: Great Wall of China</item>
+
+        <item>A: England</item>
+        <item>B: Argentina</item>
+        <item>C: Uruguay</item>
+        <item>D: Netherlands</item>
+    </string-array>
+
+    <string-array name="answers">
+        <item>a</item>
+        <item>c</item>
+        <item>d</item>
+    </string-array>
+
 </resources>
