@@ -19,10 +19,20 @@
     <string name="victory">Victory!</string>
     <string name="victory_explain">Congratulations! Your wits and trivia savvy have earned you the million dollar grand prize! Click the \'Go Back\' button to return to the main screen, and challenge your friends to see if they can beat your score!</string>
     <string name="close">Close</string>
+    <string name="enter_name">Enter Name</string>
+    <string name="high_score">High Score: $0</string>
+    <string name="date_set">"Date Set: --- "</string>
     <string-array name="questions">
         <item>Who was the 6th president of the United States?</item>
         <item>Which of the following is NOT one of the NEW 7 Wonders of the World?</item>
         <item>Which of the following countries has NEVER won the World Cup?</item>
+        <item>As of 2020, google.com and youtube.com are the top 2 most visited sites in the world. Which of the following is the 3rd most visited website?</item>
+        <item>At which of the following values is the Fahrenheit and Celsius temperature the same?</item>
+        <item>Caffeine and TNT are made up of the same elements but in different proportions. Which of the following chemicals also shares the same elements in caffeine and TNT?</item>
+        <item>The Silk Road was one of the most impactful trading routes of the ancient world. Approximately what is its length in kilometers?</item>
+        <item>In what year was Pablo Picasso\'s famous work Guernica painted?</item>
+        <item>Mourophobia is the fear of which of the following things?</item>
+        <item>Which of the following words is used to represent the letter \'M\' in the NATO Phonetic Alphabet?</item>
     </string-array>
 
     <string-array name="options">
@@ -40,12 +50,54 @@
         <item>B: Argentina</item>
         <item>C: Uruguay</item>
         <item>D: Netherlands</item>
+
+        <item>A: twitter.com</item>
+        <item>B: amazon.com</item>
+        <item>C: reddit.com</item>
+        <item>D: facebook.com</item>
+
+        <item>A: -32</item>
+        <item>B: 212</item>
+        <item>C: -40</item>
+        <item>D: 572</item>
+
+        <item>A: Laughing gas</item>
+        <item>B: Cyanoacrylate</item>
+        <item>C: Nitric acid</item>
+        <item>D: Formaldehyde</item>
+
+        <item>A: 5000</item>
+        <item>B: 6000</item>
+        <item>C: 7000</item>
+        <item>D: 8000</item>
+
+        <item>A: 1937</item>
+        <item>B: 1940</item>
+        <item>C: 1944</item>
+        <item>D: 1949</item>
+
+        <item>A: Trees</item>
+        <item>B: Lamps</item>
+        <item>C: Berries</item>
+        <item>D: Chalk</item>
+
+        <item>A: Military</item>
+        <item>B: Mike</item>
+        <item>C: Mark</item>
+        <item>D: Motor</item>
     </string-array>
 
     <string-array name="answers">
         <item>a</item>
         <item>c</item>
         <item>d</item>
+        <item>d</item>
+        <item>c</item>
+        <item>b</item>
+        <item>c</item>
+        <item>a</item>
+        <item>c</item>
+        <item>b</item>
     </string-array>
 
 </resources>

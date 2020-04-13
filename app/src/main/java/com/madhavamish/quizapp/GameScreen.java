@@ -12,11 +12,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.snackbar.Snackbar;
+import com.google.gson.Gson;
+
+import java.text.DateFormat;
+import java.util.Calendar;
 
 public class GameScreen extends AppCompatActivity implements PollDialog.PollDialogListener, ElimDialog.ElimDialogListener, GameOverDialog.GameOverListener, VictoryDialog.VictoryDialogListener {
 
     Button final_answer, poll, eliminate, first_elim, second_elim, a, b, c, d;
-    TextView curr_question, curr_prize;
+    TextView curr_question, curr_prize, high_score, high_date;
     String[] myQuestions, myOptions, myAnswers;
     String chosen;
     Snackbar poll_results;
@@ -40,12 +44,22 @@ public class GameScreen extends AppCompatActivity implements PollDialog.PollDial
 
         curr_question = findViewById(R.id.question);
         curr_prize = findViewById(R.id.money);
+        high_score = findViewById(R.id.high_score);
+        high_date = findViewById(R.id.date);
+
         myQuestions = getResources().getStringArray(R.array.questions);
         myOptions = getResources().getStringArray(R.array.options);
         myAnswers = getResources().getStringArray(R.array.answers);
 
         preferences = getSharedPreferences("Settings", Context.MODE_PRIVATE);
         editor = preferences.edit();
+
+        Gson g = new Gson();
+        Score s = g.fromJson(preferences.getString("scoreJson", "{\"money\":0,\"date\":\"---\"}"), Score.class);
+        String newPrize = "High Score: $" + s.getMoney();
+        String newDate = "Date Set: " + s.getDate();
+        high_score.setText(newPrize);
+        high_date.setText(newDate);
 
         poll_used = preferences.getBoolean("pollUsed", false);
         eliminate_used = preferences.getBoolean("elimUsed", false);
@@ -54,7 +68,7 @@ public class GameScreen extends AppCompatActivity implements PollDialog.PollDial
         poll_results = Snackbar.make(findViewById(R.id.game_screen), "test", Snackbar.LENGTH_INDEFINITE);
 
         curr_question.setText(myQuestions[level]);
-        String prize = "$" + level * 1000;
+        String prize = "$" + level * 100000;
         curr_prize.setText(prize);
         a.setText(myOptions[level * 4]);
         b.setText(myOptions[level * 4 + 1]);
@@ -69,6 +83,10 @@ public class GameScreen extends AppCompatActivity implements PollDialog.PollDial
             public void onClick(View v) {
                 first_elim = null;
                 second_elim = null;
+                a.setEnabled(true);
+                b.setEnabled(true);
+                c.setEnabled(true);
+                d.setEnabled(true);
                 poll_results.dismiss();
 
                 switch (myAnswers[level]) {
@@ -116,7 +134,7 @@ public class GameScreen extends AppCompatActivity implements PollDialog.PollDial
                     }
                     else {
                         Toast.makeText(getApplicationContext(), R.string.correct, Toast.LENGTH_SHORT).show();
-                        String prize = "$" + level * 1000;
+                        String prize = "$" + level * 100000;
                         curr_prize.setText(prize);
                         curr_question.setText(myQuestions[level]);
                         a.setText(myOptions[level * 4]);
@@ -279,14 +297,50 @@ public class GameScreen extends AppCompatActivity implements PollDialog.PollDial
 
     @Override
     public void gameOver() {
-        editor.clear().apply();
+        editor.putInt("level", 0);
+        editor.putBoolean("pollUsed", false);
+        editor.putBoolean("elimUsed", false);
+        editor.apply();
+
+        Gson gson = new Gson();
+        Score score = gson.fromJson(preferences.getString("scoreJson", "{\"money\":0,\"date\":\"---\"}"), Score.class);
+        int money = score.getMoney();
+        if(level*100000 >= money){
+            score.setMoney(level*100000);
+            score.setDate(DateFormat.getDateInstance().format(Calendar.getInstance().getTime()));
+            String newPrize = "High Score: $" + score.getMoney();
+            String newDate = "Date Set: " + score.getDate();
+            high_score.setText(newPrize);
+            high_date.setText(newDate);
+            editor.putString("scoreJson", gson.toJson(score));
+            editor.apply();
+        }
+
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }
 
     @Override
     public void gameWon() {
-        editor.clear().apply();
+        editor.putInt("level", 0);
+        editor.putBoolean("pollUsed", false);
+        editor.putBoolean("elimUsed", false);
+        editor.apply();
+
+        Gson gson = new Gson();
+        Score score = gson.fromJson(preferences.getString("scoreJson", "{\"money\":0,\"date\":\"---\"}"), Score.class);
+        int money = score.getMoney();
+        if(level*100000 >= money){
+            score.setMoney(level*100000);
+            score.setDate(DateFormat.getDateInstance().format(Calendar.getInstance().getTime()));
+            String newPrize = "High Score: $" + score.getMoney();
+            String newDate = "Date Set: " + score.getDate();
+            high_score.setText(newPrize);
+            high_date.setText(newDate);
+            editor.putString("scoreJson", gson.toJson(score));
+            editor.apply();
+        }
+
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }

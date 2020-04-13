@@ -95,7 +95,7 @@
         android:layout_height="wrap_content"
         android:text="@string/opener"
         android:textAlignment="center"
-        android:textSize="@dimen/font_medium"
+        android:textSize="@dimen/font_small"
         android:textColor="@color/white"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -123,6 +123,26 @@
         app:layout_constraintLeft_toLeftOf="@id/vert_center"
         app:layout_constraintTop_toTopOf="@id/money"
         app:layout_constraintBottom_toBottomOf="parent"/>
+
+    <TextView
+        android:id="@+id/high_score"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/high_score"
+        android:textSize="@dimen/font_small"
+        android:textColor="@color/colorPrimary"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <TextView
+        android:id="@+id/date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/date_set"
+        android:textSize="@dimen/font_small"
+        android:textColor="@color/colorPrimary"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/high_score"/>
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/ho_center"
